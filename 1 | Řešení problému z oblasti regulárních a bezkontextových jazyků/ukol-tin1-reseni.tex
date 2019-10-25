@@ -14,6 +14,8 @@
 \usepackage{makecell}
 \usepackage[shortlabels]{enumitem}
 \usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{newtxtext, newtxmath}
 
 \newcommand{\NUMBER}{1}
 \newcommand{\COURSE}{Teoretická informatika (TIN)}
@@ -29,6 +31,8 @@
 \fancyfoot[C]{}
 \fancyfoot[R]{\thepage\,/\,\pageref*{LastPage}}
 
+\setlength{\parindent}{0pt}
+
 
 \begin{document}
     \begin{center}
@@ -39,7 +43,7 @@
     \section*{1.~příklad}
 
     Uvažujme operaci~$ \circ $~definovanou následovně: $ L_1 \circ L_2 = L_1
-    \cup \overline{L_2} $. S využitím uzávěrových vlastností dokažte, nebo
+    \cup \overline{L_2} $. S~využitím uzávěrových vlastností dokažte, nebo
     vyvraťte, následující vztahy:
     \begin{enumerate}[(a)]
         \item
@@ -68,7 +72,7 @@
                 \item
                     Vztah přepíšeme s~využitím definované operace~$ \circ $: \\
                     $ L_1, L_2 \in \mathcal{L}_3 \Rightarrow (L_1 \circ L_2 \in
-                    \mathcal{L}_3) \Leftrightarrow (L_1 \cup \overline{L_2} \in
+                    \mathcal{L}_3 \Leftrightarrow L_1 \cup \overline{L_2} \in
                     \mathcal{L}_3) $
 
                 \item
@@ -85,14 +89,9 @@
                     \mathcal{L}_3 $.
 
                 \item
-                    Konečně díky uzavřenosti vůči sjednocení platí vztah $ L_1
-                    \in \mathcal{L}_3 \Rightarrow L_1 \cup \overline{L_2} \in
-                    \mathcal{L}_3 $.
-
-                \item
-                    Potom tedy platí i~vztah $ L_1, L_2 \in \mathcal{L}_3
-                    \Rightarrow L_1 \cup \overline{L_2} \in \mathcal{L}_3 $,
-                    který je ekvivalentní vztahu~(a). \QEDB
+                    Konečně díky uzavřenosti vůči sjednocení platí vztah $ L_1,
+                    L_2 \in \mathcal{L}_3 \Rightarrow L_1 \cup \overline{L_2}
+                    \in \mathcal{L}_3 $, který je ekvivalentní vztahu~(a). \QEDB
             \end{itemize}
 
         \item
@@ -102,13 +101,13 @@
                 \item
                     Vztah přepíšeme s~využitím definované operace~$ \circ $: \\
                     $ L_1 \in \mathcal{L}_3, L_2 \in \mathcal{L}_2^D \Rightarrow
-                    (L_1 \circ L_2 \in \mathcal{L}_2^D) \Leftrightarrow (L_1
+                    (L_1 \circ L_2 \in \mathcal{L}_2^D \Leftrightarrow L_1
                     \cup \overline{L_2} \in \mathcal{L}_2^D) $
 
                 \item
                     Podle věty~4.27\footref{tin} jsou deterministické
                     bezkontextové jazyky~$ \mathcal{L}_2^D $~uzavřeny vůči
-                    doplňku. Díky této větě platí i~vztah $ L_2 \in
+                    doplňku. Díky této větě platí vztah $ L_2 \in
                     \mathcal{L}_2^D \Rightarrow \overline{L_2} \in
                     \mathcal{L}_2^D $.
 
@@ -116,10 +115,12 @@
                     Věta~4.27\footref{tin} také říká, že deterministické
                     bezkontextové jazyky~$ \mathcal{L}_2^D $~jsou uzavřeny
                     vůči průniku s~regulárními jazyky~$ \mathcal{L}_3 $. Podle
-                    této věty tedy platí následující vztah: \\ $ L_1 \in
-                    \mathcal{L}_3, L_2 \in \mathcal{L}_2^D \Rightarrow (L_1
+                    této věty tedy platí následující vztah: \\ $ (L_1 \in
+                    \mathcal{L}_3, L_2 \in \mathcal{L}_2^D \Rightarrow L_1
                     \cap \overline{L_2} \in \mathcal{L}_2^D) \Leftrightarrow
-                    (\overline{L_1 \cap \overline{L_2}}\in \mathcal{L}_2^D) $
+                    (L_1 \in \mathcal{L}_3, L_2 \in \mathcal{L}_2^D
+                    \Rightarrow \overline{L_1 \cap \overline{L_2}}\in
+                    \mathcal{L}_2^D) $
 
                 \item
                     S~využitím \emph{De Morganova zákona} lze tento vztah
@@ -148,7 +149,7 @@
                 \item
                     Vztah přepíšeme s~využitím definované operace~$ \circ $: \\
                     $ L_1 \in \mathcal{L}_3, L_2 \in \mathcal{L}_2 \Rightarrow
-                    (L_1 \circ L_2 \in \mathcal{L}_2) \Leftrightarrow (L_1
+                    (L_1 \circ L_2 \in \mathcal{L}_2 \Leftrightarrow L_1
                     \cup \overline{L_2} \in \mathcal{L}_2) $
 
                 \item
@@ -175,20 +176,20 @@
 
     \subsection*{Řešení:}
 
-    $ M_L = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F) = (\{q_0, q_1,
+    $ \mathbf{M_L} = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F) = (\{q_0, q_1,
     q_2, q_3, q_4, q_5\}, \{a, b, \#\}, \{\sim, *, \circ\}, \delta, q_0, \sim,
-    \{q_5\}) $, kde \\ $ \delta \subseteq Q \times (\Sigma \cup \{\epsilon\})
+    \{q_5\}) $, kde \\ $ \delta \subseteq Q \times (\Sigma \cup \{\varepsilon\})
     \times \Gamma \rightarrow 2^{Q \times \Gamma^*} $ je přechodová funkce
-    definovaná následovně: \\ \\
+    definovaná následovně: \\[10pt]
     \begin{minipage}{.45\linewidth}
-        \begin{itemize}[label={}]
+        \begin{itemize}[label=]
             \item $ \delta(q_0, a, \sim) = (q_0, *\!\sim) $
             \item $ \delta(q_0, a, *) = (q_0, \circ*) $
             \item $ \delta(q_0, a, \circ) = (q_0, \circ\circ) $
             \item $ \delta(q_0, b, \sim) = (q_1, \circ*\!\sim) $
             \item $ \delta(q_0, b, *) = (q_1, \circ\!\circ\!*) $
             \item $ \delta(q_0, b, \circ) = (q_1, \circ\!\circ\!\circ) $
-            \item $ \delta(q_0, \#, \sim) = (q_5, \epsilon) $
+            \item $ \delta(q_0, \#, \sim) = (q_5, \varepsilon) $
             \item $ \delta(q_0, \#, *) = (q_2, *) $
             \item $ \delta(q_0, \#, \circ) = (q_2, \circ) $
             \item $ \delta(q_1, b, \circ) = (q_1, \circ\!\circ\!\circ) $
@@ -196,19 +197,19 @@
     \end{minipage}
     \hfill
     \begin{minipage}{.45\linewidth}
-        \begin{itemize}[label={}]
+        \begin{itemize}[label=]
             \item $ \delta(q_1, \#, \circ) = (q_2, \circ) $
-            \item $ \delta(q_2, a, \circ) = (q_3, \epsilon) $
-            \item $ \delta(q_2, b, \circ) = (q_4, \epsilon) $
-            \item $ \delta(q_2, b, *) = (q_5, \epsilon) $
-            \item $ \delta(q_3, \epsilon, \circ) = (q_2, \epsilon) $
-            \item $ \delta(q_3, \epsilon, *) = (q_5, \epsilon) $
-            \item $ \delta(q_4, b, \circ) = (q_4, \epsilon) $
-            \item $ \delta(q_4, b, *) = (q_5, \epsilon) $
-            \item $ \delta(q_5, \epsilon, \sim) = (q_5, \epsilon) $
+            \item $ \delta(q_2, a, \circ) = (q_3, \varepsilon) $
+            \item $ \delta(q_2, b, \circ) = (q_4, \varepsilon) $
+            \item $ \delta(q_2, b, *) = (q_5, \varepsilon) $
+            \item $ \delta(q_3, \varepsilon, \circ) = (q_2, \varepsilon) $
+            \item $ \delta(q_3, \varepsilon, *) = (q_5, \varepsilon) $
+            \item $ \delta(q_4, b, \circ) = (q_4, \varepsilon) $
+            \item $ \delta(q_4, b, *) = (q_5, \varepsilon) $
+            \item $ \delta(q_5, \varepsilon, \sim) = (q_5, \varepsilon) $
         \end{itemize}
-    \end{minipage} \\ \bigbreak
-    \textbf{Grafická reprezentace automatu~$ M_L $}:
+    \end{minipage} \\[10pt]
+    \textbf{Grafická reprezentace automatu~$ \mathbf{M_L} $}:
     \begin{center}
         \begin{tikzpicture}[scale=.114]
             \tikzstyle{every node}+=[inner sep=0pt]
@@ -219,7 +220,7 @@
             \draw [black] (37.5,-36.9) circle (3);
             \draw (37.5,-36.9) node {$ q_2 $};
             \draw [black] (56.4,-10.3) circle (3);
-            \draw (56.4,-10.3) node {$ q 3$};
+            \draw (56.4,-10.3) node {$ q_3$};
             \draw [black] (56.4,-36.9) circle (3);
             \draw (56.4,-36.9) node {$ q_4 $};
             \draw [black] (72.9,-36.9) circle (3);
@@ -233,13 +234,13 @@
             \draw [black] (10.935,-39.884) arc (24.57557:-263.42443:2.25);
             \fill [black] (8.63,-38.58) -- (7.7,-38.46) -- (8.11,-39.37);
             \draw (5.96,-43.28) node [below] {\makecell[l]{$ a,
-                \circ/\!\circ\!\circ $ \\ $ a, */\!\circ\!* $ \\ $ a,
+                \circ/\circ\circ $ \\ $ a, */\circ* $ \\ $ a,
                 \sim\!/*\!\sim $}};
 
             \draw [black] (9.777,-7.62) arc (234:-54:2.25);
             \fill [black] (12.42,-7.62) -- (13.3,-7.27) -- (12.49,-6.68);
             \draw (11.1,-3.05) node [above] {$ b,
-                \circ/\!\circ\!\circ\circ $};
+                \circ/\circ\!\circ\!\circ $};
 
             \draw [black] (14.1,-36.9) -- (34.5,-36.9);
             \fill [black] (34.5,-36.9) -- (33.7,-36.4) -- (33.7,-37.4);
@@ -249,12 +250,12 @@
             \draw [black] (11.1,-33.9) -- (11.1,-13.3);
             \fill [black] (11.1,-13.3) -- (10.6,-14.1) -- (11.6,-14.1);
             \draw (10,-24.6) node [left] {\makecell[l]{$ b,
-                \circ/\!\circ\!\circ\circ $ \\ $ b, */\!\circ\!\circ* $
-                \\ $ b, \sim\!/\!\circ\!*\!\sim $}};
+                \circ/\circ\!\circ\!\circ $ \\ $ b, */\circ\!\circ\!* $
+                \\ $ b, \sim\!/\circ*\!\sim $}};
 
             \draw [black] (71.515,-39.56) arc (-30.02454:-149.97546:34.089);
             \fill [black] (71.52,-39.56) -- (70.68,-40) -- (71.55,-40.5);
-            \draw (42,-58.09) node [below] {$ \#, \sim\!/\epsilon $};
+            \draw (42,-58.09) node [below] {$ \#, \sim\!/\varepsilon $};
 
             \draw [black] (13.21,-12.43) -- (35.39,-34.77);
             \fill [black] (35.39,-34.77) -- (35.18,-33.85) -- (34.47,-34.56);
@@ -262,35 +263,37 @@
 
             \draw [black] (55.707,-13.218) arc (-15.50988:-55.27971:39.795);
             \fill [black] (55.71,-13.22) -- (55.01,-13.86) -- (55.98,-14.12);
-            \draw (54,-21) node [right] {$ a, \circ/\epsilon $};
+            \draw (54,-21) node [right] {$ a, \circ/\varepsilon $};
 
             \draw [black] (40.5,-36.9) -- (53.4,-36.9);
             \fill [black] (53.4,-36.9) -- (52.6,-36.4) -- (52.6,-37.4);
-            \draw (46.95,-37.4) node [below] {$ b, \circ/\epsilon $};
+            \draw (46.95,-37.4) node [below] {$ b, \circ/\varepsilon $};
 
             \draw [black] (70.933,-39.162) arc (-44.87981:-135.12019:22.203);
             \fill [black] (70.93,-39.16) -- (70.01,-39.38) -- (70.72,-40.08);
-            \draw (55.2,-46.2) node [below] {$ b, */\epsilon $};
+            \draw (55.2,-46.2) node [below] {$ b, */\varepsilon $};
 
             \draw [black] (38.003,-33.943) arc (167.85168:121.35873:34.493);
             \fill [black] (38,-33.94) -- (38.66,-33.27) -- (37.68,-33.06);
-            \draw (43.01,-19.85) node [left] {$ \epsilon, \circ/\epsilon $};
+            \draw (43.01,-19.85) node [left] {$ \varepsilon,
+                \circ/\varepsilon $};
 
             \draw [black] (59.093,-11.619) arc (60.73325:2.88946:27.11);
             \fill [black] (72.91,-33.9) -- (73.37,-33.08) -- (72.38,-33.13);
-            \draw (69.51,-19.69) node [right] {$ \epsilon, */\epsilon $};
+            \draw (69.51,-19.69) node [right] {$ \varepsilon, */\varepsilon $};
 
             \draw [black] (55.077,-34.22) arc (234:-54:2.25);
             \fill [black] (57.72,-34.22) -- (58.6,-33.87) -- (57.79,-33.28);
-            \draw (56.4,-29.65) node [above] {$ b, \circ/\epsilon $};
+            \draw (56.4,-29.65) node [above] {$ b, \circ/\varepsilon $};
 
             \draw [black] (59.4,-36.9) -- (69.9,-36.9);
             \fill [black] (69.9,-36.9) -- (69.1,-36.4) -- (69.1,-37.4);
-            \draw (64.65,-37.4) node [below] {$ b, */\epsilon $};
+            \draw (64.65,-37.4) node [below] {$ b, */\varepsilon $};
 
             \draw [black] (75.127,-38.893) arc (75.90462:-212.09538:2.25);
             \fill [black] (72.67,-39.88) -- (71.99,-40.53) -- (72.96,-40.78);
-            \draw (76.38,-43.68) node [below] {$ \epsilon, \sim\!/\epsilon $};
+            \draw (76.38,-43.68) node [below] {$ \varepsilon,
+                \sim\!/\varepsilon $};
         \end{tikzpicture}
     \end{center}
 
@@ -309,10 +312,10 @@
 
         \item
             Potom dle \emph{Pumping lemma} (věta~3.18\footref{tin}) platí: \\
-            $ \exists\,k > 0: \forall\,w \in L: |w| \geq k \Rightarrow \\
-            \Rightarrow (\exists\,x, y, z \in \{a, b, \#\}^*: w = xyz \wedge y
-            \neq \epsilon \wedge |xy| \leq k \wedge \forall\,i \geq 0: xy^iz \in
-            L ) $
+            $ \exists\,k > 0 \in \mathbb{N}: \forall\,w \in L: |w| \geq k
+            \Rightarrow \\ \Rightarrow \exists\,x, y, z \in \{a, b, \#\}^*:
+            w = xyz \wedge y \neq \varepsilon \wedge |xy| \leq k \wedge
+            \forall\,i \geq 0 \in \mathbb{N}: xy^iz \in L $
 
         \item
             Uvažme libovolné~$ k $~splňující výše uvedené.
@@ -321,19 +324,19 @@
             Zvolme $ w = a^k\#b^k $. $ w \in L $, protože $ L = \{a^{i^\prime}%
             b^{j^\prime}\#a^{k^\prime}b^{l^\prime}\ |\ i^\prime + 2j^\prime =
             2k^\prime + l^\prime\} $ a~$ w = a^kb^0\#a^0b^k $, kde platí
-            $ (k + 2 \cdot 0 = 2 \cdot 0 + k) \Rightarrow (k = k) $. Dále
+            $ k + 2 \cdot 0 = 2 \cdot 0 + k \Rightarrow k = k $. Dále
             platí, že $ |w| = 2k + 1 \geq k $.
 
         \item
             Tedy $ \exists\,x, y, z \in \{a, b, \#\}^*: a^k\#b^k = xyz \wedge
-            y \neq \epsilon \wedge |xy| \leq k \wedge \forall\,i \geq 0:
-            xy^iz \in L $.
+            y \neq \varepsilon \wedge |xy| \leq k \wedge \forall\,i \geq 0 \in
+            \mathbb{N}: xy^iz \in L $.
 
         \item
             Uvažme libovolné $ x, y, z $ vyhovující výše uvedené podmínce.
 
         \item
-            Z~ toho, že $ |xy| \leq k $ a~$ y \neq \epsilon $ plyne:
+            Z~ toho, že $ |xy| \leq k $ a~$ y \neq \varepsilon $ plyne:
             $ x = a^r \wedge y = a^s \wedge z = a^{k-r-s}\#b^k \wedge
             r \geq 0 \wedge s > 0 \wedge r + s \leq k$.
 
@@ -344,7 +347,182 @@
         \item
             To je \textbf{spor}, protože $ k + s \neq k $, protože $ s > 0 $
             a~z~\emph{Pumping lemma} plyne, že $ xy^iz \in L $. Proto
-            \textbf{jazyk~$ L $~není regulární}, tj. $ L \notin \mathcal{L}_3 $.
-            \QEDB
+            \textbf{jazyk~$ \mathbf{L} $~není regulární, tj. $ \mathbf{L
+            \notin \mathcal{L}_3} $}. \QEDB
+    \end{itemize}
+
+
+    \section*{4.~příklad}
+
+    Navrhněte algoritmus, který pro daný nedeterministický konečný automat
+    $ A = (Q, \Sigma, \delta, q_0, F) $ rozhodne, zda $ \forall\,w \in L(A):
+    |w| \geq 5 $. \\[5pt]
+    Dále demonstrujte běh tohoto algoritmu na automatu $ A = (\{q_0, q_1,
+    q_2, q_3, q_4\}, \{a\}, \delta, q_0, \{q_4\}) $, kde~$ \delta $~je
+    definována jako \\[5pt]
+    $ \delta(q_0, a) = \{q_1, q_0\} $, $ \delta(q_1, a) = \{q_1, q_2\} $, \\
+    $ \delta(q_2, a) = \{q_0, q_3\} $, $ \delta(q_3, a) = \{q_0, q_4\} $, \\
+    $ \delta(q_4, a) = \{q_0\} $.
+
+    \subsection*{Řešení:}
+
+    \textbf{Algoritmus:}
+    \begin{addmargin}[10pt]{0pt}
+        \underline{Vstup:}
+            Nedeterministický konečný automat $ A = (Q, \Sigma, \delta,
+            q_0, F) $.
+        \\[5pt]
+        \underline{Výstup:}
+            $
+                \begin{cases}
+                    \mathtt{TRUE} &
+                    \text{pokud}\ \ \forall\,w \in L(A): |w| \geq 5 \\
+                    \mathtt{FALSE} &
+                    \text{jinak, tj. pokud}\ \ \exists\,w \in L(A): |w| < 5
+                \end{cases}
+            $
+        \\[5pt]
+        \underline{Metoda:}
+            \begin{enumerate}
+                \item
+                    Nechť $ R_\delta \subseteq Q \times Q $ je binární relace,
+                    která popisuje, zda je v~automatu~$ A $~možný přímý přechod
+                    mezi danou dvojicí stavů $ (p, q) $, definována na základě
+                    přechodové funkce~$ \delta $~následovně: \\
+                    $ R_\delta = \{(p, q) \in Q \times Q\ |\ \exists\,a \in
+                    \Sigma: q \in \delta(p, a)\} $
+
+                \item
+                    Nechť~$ R_\delta^+ $~je tranzitivní uzávěr
+                    relace~$ R_\delta $.
+
+                \item
+                    Nechť výstup algoritmu je dán
+                    predikátem~$ \varphi $~definovaným následovně: \\
+                    $ \varphi: \forall\,q_1, q_6 \in Q: q_1 = q_0 \wedge q_6
+                    \in F  \wedge (q_1, q_6) \in R_\delta^+ \Rightarrow \\
+                    \Rightarrow \exists\,Q^\prime \subseteq Q: |Q^\prime| =
+                    6 \wedge q_1, q_6 \in Q^\prime \wedge \forall\,2 \leq i
+                    \leq 6 \in \mathbb{N}: \exists\,q_i \in Q^\prime:
+                    (q_{i - 1}, q_i) \in R_\delta^+ $
+            \end{enumerate}
+    \end{addmargin}
+
+    \textbf{Demonstrace běhu algoritmu na daném automatu~$ A $:}
+    \begin{addmargin}[10pt]{0pt}
+        \underline{Vstup:}
+            Daný automat~$ A $.
+        \\[5pt]
+        \underline{Metoda:}
+            \begin{enumerate}
+                \item
+                    $ R_\delta = \{(q_0, q_1), (q_0, q_0), (q_1, q_1),
+                    (q_1, q_2), (q_2, q_0), (q_2, q_3), (q_3, q_0),
+                    (q_3, q_4), (q_4, q_0)\} $
+
+                \item
+                    $ R_\delta^+ = \{q_0, q_1, q_2, q_3, q_4\} \times
+                    \{q_0, q_1, q_2, q_3, q_4\}$
+
+                \item
+                    $ \varphi = \mathtt{FALSE} $, protože
+                    predikát~$ \varphi $~je nesplnitelný. Na cestě od
+                    počátečního stavu~$ q_0 $~do koncového
+                    stavu~$ q_4 $~se nenachází dostatečný počet přechodů
+                    mezi navzájem různými stavy.
+            \end{enumerate}
+        \underline{Výstup:}
+            $ \mathtt{FALSE} $, tj. neplatí $ \forall\,w \in L(A):
+            |w| \geq 5$.
+    \end{addmargin}
+
+
+    \section*{5.~příklad}
+
+    Dokažte, že jazyk $ L =\{w \in \{a, b\}^*\ |\ \#_a(w) \bmod 2 \neq 0
+    \wedge \#_b(w) \leq 2\} $ je regulární. Postupujte následovně:
+    \begin{itemize}
+        \item
+            Definujte~$ \sim_L $~pro jazyk~$ L $.
+
+        \item
+            Zapište rozklad $ \Sigma^* / \sim_L $ a~určete počet tříd
+            tohoto rozkladu.
+
+        \item
+            Ukažte, že~$ L $~je sjednocením některých tříd rozkladu
+            $ \Sigma^* / \sim_L $.
+    \end{itemize}
+
+    \subsection*{Řešení:}
+
+    \begin{itemize}
+        \item
+            \textbf{Prefixová ekvivalence} pro jazyk~$ L $,
+            $ \mathbf{\sim_L} \subseteq \{a, b\}^* \times \{a, b\}^* $
+            je definována následovně: \\
+            $ (\forall\,u, v \in \{a, b\}^*: u\sim_Lv) \Leftrightarrow
+            (\forall\,w \in \{a, b\}^*: uw \in L \Leftrightarrow vw
+            \in L) \Leftrightarrow (\#_a(u) \bmod 2 = \#_a(v) \bmod 2
+            \wedge \\ \wedge ((\#_b(u) = 0  \wedge \#_b(v) = 0) \vee
+            (\#_b(u) = 1 \wedge \#_b(v) = 1) \vee  (\#_b(u) = 2 \wedge
+            \#_b(v) = 2) \vee (\#_b(u) > 2 \wedge \#_b(v) > 2))) $
+
+        \item
+            \textbf{Rozklad množiny} všech řetězců nad abecedou
+            $ \Sigma = \{a, b\} $ jazyka~$ L $~(~$ \!\Sigma^* $)~podle
+            prefixové ekvivalence~$ \sim_L $~($ \mathbf{\Sigma^* /
+            \sim_L} $) je následující:
+            \begin{itemize}[label=]
+                \item
+                    $ L_1 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 0
+                    \wedge \#_b(w) = 0\} $
+
+                \item
+                    $ L_2 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 0
+                    \wedge \#_b(w) = 1\} $
+
+                \item
+
+                    $ L_3 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 0
+                    \wedge \#_b(w) = 2\} $
+
+                \item
+                    $ L_4 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 0
+                    \wedge \#_b(w) > 2\} $
+
+                \item
+                    $ L_5 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
+                    \wedge \#_b(w) = 0\} $
+
+                \item
+                    $ L_6 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
+                    \wedge \#_b(w) = 1\} $
+
+                \item
+
+                    $ L_7 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
+                    \wedge \#_b(w) = 2\} $
+
+                \item
+                    $ L_8 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
+                    \wedge \#_b(w) > 2\} $
+            \end{itemize}
+            \textbf{Počet tříd tohoto rozkladu je~8}.
+
+        \item
+            \textbf{Jazyk~$ \mathbf{L} $~je sjednocením tříd~$
+            \mathbf{L_5} $, $ \mathbf{L_6} $ a~$ \mathbf{L_7} $,
+            tj. $ \mathbf{L = L_5 \cup L_6 \cup L_7} $.}
+
+        \item
+            Protože má relace prefixové ekvivalence~$ \sim_L $~konečný
+            index~8~(počet tříd rozkladu $ \Sigma^* / \sim_L $)
+            a~jazyk~$ L $~je sjednocením některých tříd rozkladu
+            určeného relací~$ \sim_L $, jak je ukázáno výše, plyne
+            z~\emph{Myhill-Nerodovi věty} (věta 3.20\footref{tin})
+            tvrzení, že jazyk~$ L $~je přijímaný deterministickým
+            končeným automatem, proto \textbf{je jazyk~$ \mathbf{L}
+            $~regulární, tj. $ \mathbf{L \in \mathcal{L}_3} $}. \QEDB
     \end{itemize}
 \end{document}
