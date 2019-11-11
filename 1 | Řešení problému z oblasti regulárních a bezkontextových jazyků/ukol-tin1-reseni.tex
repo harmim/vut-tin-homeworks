@@ -463,10 +463,10 @@
             je definována následovně: \\
             $ (\forall\,u, v \in \{a, b\}^*: u\sim_Lv) \Leftrightarrow
             (\forall\,w \in \{a, b\}^*: uw \in L \Leftrightarrow vw
-            \in L) \Leftrightarrow (\#_a(u) \bmod 2 = \#_a(v) \bmod 2
+            \in L) \Leftrightarrow ((\#_a(u) \bmod 2 = \#_a(v) \bmod 2
             \wedge \\ \wedge ((\#_b(u) = 0  \wedge \#_b(v) = 0) \vee
             (\#_b(u) = 1 \wedge \#_b(v) = 1) \vee  (\#_b(u) = 2 \wedge
-            \#_b(v) = 2) \vee (\#_b(u) > 2 \wedge \#_b(v) > 2))) $
+            \#_b(v) = 2))) \vee (\#_b(u) > 2 \wedge \#_b(v) > 2)) $
 
         \item
             \textbf{Rozklad množiny} všech řetězců nad abecedou
@@ -479,45 +479,38 @@
                     \wedge \#_b(w) = 0\} $
 
                 \item
-                    $ L_2 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 0
-                    \wedge \#_b(w) = 1\} $
-
-                \item
-
-                    $ L_3 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 0
-                    \wedge \#_b(w) = 2\} $
-
-                \item
-                    $ L_4 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 0
-                    \wedge \#_b(w) > 2\} $
-
-                \item
-                    $ L_5 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
+                    $ L_2 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
                     \wedge \#_b(w) = 0\} $
 
                 \item
-                    $ L_6 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
+                    $ L_3 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 0
                     \wedge \#_b(w) = 1\} $
 
                 \item
+                    $ L_4 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
+                    \wedge \#_b(w) = 1\} $
 
-                    $ L_7 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
+                \item
+                    $ L_5 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 0
                     \wedge \#_b(w) = 2\} $
 
                 \item
-                    $ L_8 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
-                    \wedge \#_b(w) > 2\} $
+                    $ L_6 = \{w \in \Sigma^*\ |\ \#_a(w) \bmod 2 = 1
+                    \wedge \#_b(w) = 2\} $
+
+                \item
+                    $ L_7 = \{w \in \Sigma^*\ |\ \#_b(w) > 2\} $
             \end{itemize}
-            \textbf{Počet tříd tohoto rozkladu je~8}.
+            \textbf{Počet tříd tohoto rozkladu je~7}.
 
         \item
             \textbf{Jazyk~$ \mathbf{L} $~je sjednocením tříd~$
-            \mathbf{L_5} $, $ \mathbf{L_6} $ a~$ \mathbf{L_7} $,
-            tj. $ \mathbf{L = L_5 \cup L_6 \cup L_7} $.}
+            \mathbf{L_2} $, $ \mathbf{L_4} $ a~$ \mathbf{L_6} $,
+            tj. $ \mathbf{L = L_2 \cup L_4 \cup L_6} $.}
 
         \item
             Protože má relace prefixové ekvivalence~$ \sim_L $~konečný
-            index~8~(počet tříd rozkladu $ \Sigma^* / \sim_L $)
+            index~7~(počet tříd rozkladu $ \Sigma^* / \sim_L $)
             a~jazyk~$ L $~je sjednocením některých tříd rozkladu
             určeného relací~$ \sim_L $, jak je ukázáno výše, plyne
             z~\emph{Myhill-Nerodovi věty} (věta 3.20\footref{tin})
