@@ -23,12 +23,10 @@
 \newcommand*{\QEDB}{\hfill\ensuremath{\square}}
 
 \lstset{
-    basicstyle=\ttfamily,
-    keywordstyle=\color{blue},
-    numbers=left,
-    tabsize=2,
-    frame=shadowbox,
-    firstnumber=0
+	basicstyle=\ttfamily,
+	numbers=left,
+	frame=shadowbox,
+	firstnumber=0
 }
 
 \pagestyle{fancy}
@@ -428,8 +426,9 @@
 			vstupu s~kódem~$ x_2) \wedge (M_x $ má po přijetí na
 			pásce právě~42 ne-blankových symbolů$ )) \Leftrightarrow
 			x \in HP $.
+		
+		\QEDB
 	\end{itemize}
-	\QEDB
 
 	\textbf{%
 		Idea důkazu, že jazyk~$ \boldsymbol{L_{42}} $ je  částečně
@@ -489,21 +488,21 @@
 
 	\begin{enumerate}[(a)]
 		\item
-		    Počáteční konfigurace~$ C_M = ((0, 0), \uparrow, g) $. \\
-		    Kódování symbolů: $ 0 \backsimeq 0 $, $ 1 \backsimeq 1 $,
-		    $ \Delta \backsimeq 2 $.
+			Počáteční konfigurace~$ C_M = ((0, 0), \uparrow, g) $. \\
+			Kódování symbolů: $ 0 \backsimeq 0 $, $ 1 \backsimeq 1 $,
+			$ \Delta \backsimeq 2 $.
 
-            \texttt{write\_blank}:
-            \begin{lstlisting}
+			\texttt{write\_blank}:
+			\begin{lstlisting}
 if empty: goto 3;
 lift-screw;
 if not empty: goto 1;
 drop-screw;
 drop-screw;
-            \end{lstlisting}
-            
-            \texttt{write\_0}:
-            \begin{lstlisting}
+			\end{lstlisting}
+
+			\texttt{write\_0}:
+			\begin{lstlisting}
 if empty: goto 3;
 lift-screw;
 if not empty: goto 1;
@@ -511,29 +510,29 @@ turn left;
 turn left;
 turn left;
 turn left;
-            \end{lstlisting}
-            
-            \newpage
-            \texttt{write\_1}:
-            \begin{lstlisting}
+			\end{lstlisting}
+
+			\newpage
+			\texttt{write\_1}:
+			\begin{lstlisting}
 if empty: goto 3;
 lift-screw;
 if not empty: goto 1;
 drop-screw;
-            \end{lstlisting}
-            
-            \texttt{move\_forward}:
-            \begin{lstlisting}
+			\end{lstlisting}
+
+			\texttt{move\_forward}:
+			\begin{lstlisting}
 step;
-            \end{lstlisting}
-            
-            \texttt{move\_backward}:
-            \begin{lstlisting}
+			\end{lstlisting}
+
+			\texttt{move\_backward}:
+			\begin{lstlisting}
 turn left;
 turn left;
 step;
 turn left;
 turn left;
-            \end{lstlisting}
+			\end{lstlisting}
 	\end{enumerate}
 \end{document}
