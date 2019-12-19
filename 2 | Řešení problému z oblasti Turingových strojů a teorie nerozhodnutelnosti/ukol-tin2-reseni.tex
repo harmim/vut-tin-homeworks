@@ -10,17 +10,26 @@
 \usepackage[unicode, colorlinks, hypertexnames=false, citecolor=red]{hyperref}
 \usepackage{fancyhdr}
 \usepackage{lastpage}
-\usepackage{makecell}
 \usepackage[shortlabels]{enumitem}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{newtxtext, newtxmath}
+\usepackage{listings}
 
 \newcommand{\NUMBER}{2}
 \newcommand{\COURSE}{Teoretická informatika (TIN)}
 \newcommand{\AUTHOR}{Dominik Harmim\,--\,xharmi00}
 
 \newcommand*{\QEDB}{\hfill\ensuremath{\square}}
+
+\lstset{
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue},
+    numbers=left,
+    tabsize=2,
+    frame=shadowbox,
+    firstnumber=0
+}
 
 \pagestyle{fancy}
 \fancyhead[L]{\AUTHOR}
@@ -34,19 +43,497 @@
 
 
 \begin{document}
-    \begin{center}
-        {\Large Úkol~\NUMBER}
-    \end{center}
+	\begin{center}
+		{\Large Úkol~\NUMBER}
+	\end{center}
 
 
-    \section*{1.~příklad}
+	\section*{1.~příklad}
+
+	Uvažujte jazyk $ L = \{w \in \{a, b\}^*\ |\ \#_a(w) = \#_b(w)\} $, kde
+	$ \#_x(w) $ značí počet výskytů symbolů~$ x $ v~řetězci~$ w $. Dokažte,
+	že jazyk~$ L $ je bezkontextový. Postupujte následovně:
+	\begin{enumerate}[(a)]
+		\item
+			Nejdříve navrhněte gramatiku~$ G $, která bude mít za cíl
+			jazyk~$ L $ generovat.
+
+		\item
+			Poté pomocí indukce k~délce slova $ w \in L $ dokažte, že $ L =
+			L(G) $.
+	\end{enumerate}
+
+	\subsection*{Řešení:}
+
+	\begin{enumerate}[(a)]
+		\item
+			Nechť~$ \boldsymbol{G} $ je následující gramatika generující
+			jazyk~$ L $: \\
+			$ \boldsymbol{G} = (\{S\}, \{a, b\}, \{S \rightarrow aSbS\ |\
+			bSaS\ |\ \varepsilon\}, S) $
+
+		\item
+			Důkaz, že $ \boldsymbol{L = L(G)} $ provedeme dokázáním, že i)
+			$ \boldsymbol{L(G) \subseteq L} $ a~ii) $ \boldsymbol{L \subseteq
+			L(G)} $ matematickou indukcí k~délce slova $ w \in L $.
+
+			\begin{enumerate}[i)]
+				\item
+					Důkaz, že $ \boldsymbol{L(G) \subseteq L} $.
+
+					\begin{enumerate}[a)]
+						\item
+							Důkaz vzhledem k~délce slova $ i = 0 $.
+
+							\begin{itemize}[label=$ \bullet $]
+								\item
+									Slovo o~délce~$ 0 $, $ \varepsilon:
+									|\varepsilon| = 0 $ lze vygenerovat
+									pravidlem $ S \rightarrow \varepsilon $
+									gramatiky~$ G $, tj. $ \varepsilon \in
+									L(G) $.
+
+								\item
+									Zároveň platí, že $ \varepsilon \in L $.
+
+								\item
+									Pro $ i = 0 $ dokazované tvrzení tedy platí.
+							\end{itemize}
+
+						\item
+							Předpokládejme, že pro slovo~$ w $ platí, že
+							$ |w| \leq i \wedge S \Rightarrow^* w : w \in L $.
+							Na základě tohoto indukčního předpokladu ukažme,
+							že dokazované tvrzení platí i~pro slova délky
+							$ i + 2 $.
+
+							\begin{itemize}[label=$ \bullet $]
+								\item
+									Gramatika~$ G $ derivuje následující
+									řetězce $ S \Rightarrow aSbS
+									\Rightarrow^* aw^{\prime}bw^{\prime
+									\prime} = w_1 $, $ S \Rightarrow bSaS
+									\Rightarrow^* bw^{\prime}aw^{\prime
+									\prime} = w_2 $.
+
+								\item
+									Dle indukčního předpokladu platí, že když
+									$ S \Rightarrow^* w^\prime \wedge S
+									\Rightarrow^* w^{\prime\prime} $, tak
+									$ w^\prime \in L \wedge w^{\prime\prime}
+									\in L $, protože $ w^\prime \in L(G)
+									\wedge w^{\prime\prime} \in L(G) \wedge
+									|w^\prime| \leq i \wedge |w^{\prime
+									\prime}| \leq i $, a~tedy $ w^\prime,
+									w^{\prime\prime} \in \{a, b\}^*:
+									\#_a(w^\prime) = \#_b(w^\prime)
+									\wedge \#_a(w^{\prime\prime}) = \#_b(w^{
+									\prime\prime}) $.
+
+								\item
+									Z~výše uvedeného plyne, že $ \#_a(w_1)
+									= \#_a(w^\prime) + \#_a(w^{\prime\prime})
+									+ 1 = \#_b(w^\prime) + \#_b(w^{\prime
+									\prime}) + 1 = \#_b(w_1) \Rightarrow
+									w_1 \in L. $
+
+								\item
+									A~zároveň platí, že $ \#_a(w_2)
+									= \#_a(w^\prime) + \#_a(w^{\prime\prime})
+									+ 1 = \#_b(w^\prime) + \#_b(w^{\prime
+									\prime}) + 1 = \#_b(w_2) \Rightarrow
+									w_2 \in L. $
+							\end{itemize}
+
+						\item
+							$ \boldsymbol{L(G) \subseteq L} $ \textbf{tedy
+							platí.}
+					\end{enumerate}
+
+				\item
+					Důkaz, že $ \boldsymbol{L \subseteq L(G)} $.
+
+					\begin{enumerate}[a)]
+						\item
+							Důkaz vzhledem k~délce slova $ i = 0 $.
+
+							\begin{itemize}[label=$ \bullet $]
+								\item
+									Slovo o~délce~$ 0 $, $ \varepsilon:
+									|\varepsilon| = 0 \wedge \varepsilon
+									\in L $.
+
+								\item
+									Zároveň~$ \varepsilon $ lze vygenerovat
+									gramatikou~$ G $ použitím pravidla $ S
+									\rightarrow \varepsilon $, tj.
+									$ \varepsilon \in L(G) $.
+
+								\item
+									Pro $ i = 0 $ tedy dokazované tvrzení
+									platí.
+							\end{itemize}
+
+						\item
+							Předpokládejme, že pro slovo~$ w $ platí, že
+							$ |w| \leq i \wedge w \in L : S \Rightarrow^*
+							w $. Na základě tohoto indukčního předpokladu
+							ukážeme, že dokazované tvrzení platí i~pro
+							slova délky $ i + 2 $.
+
+							\begin{itemize}[label=$ \bullet $]
+								\item
+									Pro řetězce z~množiny $ W = \{w \in
+									L\ |\ \#_a(w) = \frac{i + 2}{2} \wedge
+									\#_b(w) = \frac{i + 2}{2} \wedge |w| =
+									i + 2\} $ platí, že $ \forall\ w
+									\in W : \exists\ w^\prime \in L :
+									\#_a(w) = \#_a(w^\prime) + 1 =
+									\#_b(w^\prime) + 1 = \#_b(w) \wedge
+									|w^\prime| \leq i $.
+
+								\item
+									Dle indukčního předpokladu tedy platí,
+									že $ \forall\ w \in W : \exists\
+									w^\prime \in L : S \rightarrow
+									w^\prime $.
+
+								\item
+									Řetězce z~množiny~$ W $ lze generovat
+									gramatikou~$ G $ následovně:
+									\begin{itemize}[label=]
+										\item
+											$ S \Rightarrow aSbS \Rightarrow
+											aSb \Rightarrow aw^{\prime}b $
+
+										\item
+											$ S \Rightarrow aSbS \Rightarrow
+											abS \Rightarrow abw^{\prime} $
+
+										\item
+											$ S \Rightarrow bSaS \Rightarrow
+											bSa \Rightarrow bw^{\prime}a $
+
+										\item
+											$ S \Rightarrow bSaS \Rightarrow
+											baS \Rightarrow baw^{\prime} $
+									\end{itemize}
+
+								\item
+									Všechny výše uvedené řetězce patří do
+									jazyka~$ L $, protože $ w^\prime \in L $,
+									jak bylo ukázáno výše.
+							\end{itemize}
+
+						\item
+							$ \boldsymbol{L \subseteq L(G)} $ \textbf{tedy
+							platí.}
+					\end{enumerate}
+			\end{enumerate}
+			\QEDB
+	\end{enumerate}
 
 
-    \section*{2.~příklad}
+	\section*{2.~příklad}
+
+	Uvažujte \emph{doprava čtený jazyk} TS~$ M $, značený jako~$ L^P(M) $,
+	který je definován jako množina řetězců, které~$ M $ přijme v~běhu, při
+	kterém nikdy nepohne hlavou \emph{doleva} a~nikdy nepřepíše žádný symbol
+	na pásce za jiný. Dokažte, zda je problém prázdnosti doprava čteného
+	jazyka TS~$ M $, tj. zda~$ L^P(M) = \varnothing $, rozhodnutelný:
+	\begin{itemize}
+		\item
+			pokud \emph{ano}, napište algoritmus v~pseudokódu, který daný
+			problém bude rozhodovat;
+
+		\item
+			pokud \emph{ne}, dokažte nerozhodnutelnost redukcí z~jazyka
+			$ HP $.
+	\end{itemize}
+
+	\subsection*{Řešení:}
+
+	Problém prázdnosti doprava čteného jazyka Turingova stroje~$ M $, tj.
+	$ L^P(M) = \varnothing $, \textbf{je rozhodnutelný}. Důkazem nechť
+	je následující algoritmus, který tento problém rozhoduje.
+
+	\textbf{Algoritmus:}
+	\begin{addmargin}[10pt]{0pt}
+		\underline{Vstup:}
+			Deterministický Turingův stroj $ M = (Q, \Sigma, \Gamma,
+			\delta, q_0, q_f) $ s~přechodovou parciální funkcí~$ \delta $
+			definovanou následovně: $ (Q \setminus \{q_f\}) \times
+			\Gamma \rightarrow Q \times (\Gamma \cup \{L, R\}) $, kde
+			$ L, R \notin \Gamma $.
+		\\[5pt]
+		\underline{Výstup:}
+			$
+				\begin{cases}
+					\mathtt{TRUE} &
+					\text{pokud}\ \ L^P(M) = \varnothing \\
+					\mathtt{FALSE} &
+					\text{jinak, tj. pokud}\ \ L^P(M) \neq \varnothing
+				\end{cases}
+			$
+		\\[5pt]
+		\underline{Metoda:}
+			\begin{enumerate}
+				\item
+					Nechť $ R_\delta \subseteq Q \times Q $ je binární
+					relace, která popisuje, zda je v~Turingově
+					stroji~$ M $ možný přímý přechod (definovaný
+					jazykem~$ L^P(M) $) mezi danou dvojicí stavů $ (p,
+					q) $, definována na základě přechodové funkce~$
+					\delta $ následovně: \\
+					$ R_\delta = \{(p, q) \in Q \times Q\ |\ \exists\
+					\gamma_n \in \Gamma : ((q, R) \in (p, \gamma_n))
+					\vee ((q, \gamma_n) \in (p, \gamma_n))\} $
+
+				\item
+					Nechť~$ R_\delta^+ $ je tranzitivní uzávěr
+					relace~$ R_\delta $ vypočtený Warshallovým
+					algoritmem.
+
+				\item
+					Nechť výstup algoritmu já dán predikátem~$ \varphi $
+					definovaným následovně: \\
+					$ \varphi : \neg\ (\exists\ p, q \in Q : p = q_0
+					\wedge q = q_f \wedge (p, q) \in R_\delta^+) $
+			\end{enumerate}
+	\end{addmargin}
+	\QEDB
 
 
-    \section*{3.~příklad}
+	\section*{3.~příklad}
+
+	Uvažujte jazyk $ L_{42} = \{\langle M \rangle\ |\ \text{TS}\ M $
+	zastaví na některém vstupu tak, že páska bude obsahovat
+	právě~42 ne-blankových symbolů$ \} $. Dokažte pomocí redukce,
+	že~$ L_{42} $ je nerozhodnutelný. Uveďte ideu důkazu částečné
+	rozhodnutelnosti~$ L_{42} $.
+
+	\subsection*{Řešení:}
+
+	\textbf{Důkaz, že jazyk~$ \boldsymbol{L_{42}} $ je nerozhodnutelný.} \\
+	Provedeme důkaz redukcí z~problému zastavení Turingova stroje ($ HP $).
+	\begin{itemize}
+		\item
+			Jazyk, který charakterizuje $ HP $ bude vypadat následovně: \\
+			$ HP = \{\langle M \rangle \# \langle w \rangle\ |\ M $ je
+			Turingův stroj takový, že na řetězci~$ w $ zastaví$ \} $,
+			kde~$ \langle M \rangle $ je kód Turingova stroje~$ M $
+			a~$ \langle w \rangle $ je kód řetězce~$ w $.
+
+		\item
+			Zadaný jazyk~$ L_{42} = \{ \langle M \rangle\ |\ M $ je
+			Turingův stroj takový, že zastaví na některém vstupu tak,
+			že páska bude obsahovat právě~42 ne-blankových symbolů$ \} $,
+			kde~$ \langle M \rangle $ je kód Turingova stroje~$ M $, bude
+			charakterizovat problém, který tento jazyk reprezentuje.
+
+		\item
+			Navrhneme redukci~$ \sigma : \{0, 1, \#\}^* \rightarrow
+			\{0, 1\}^* $ z~jazyka $ HP $ na jazyk~$ L_{42} $.
+
+		\item
+			Redukce~$ \sigma $ přiřadí řetězci $ x \in \{0, 1, \#\}^* $
+			řetězec $ \langle M_x \rangle $, což je kód Turingova
+			stroje~$ M_x $, který pracuje následovně:
+
+			\begin{enumerate}
+				\item
+					$ M_x $ smaže svůj vstup~$ w $.
+
+				\item
+					$ M_x $ zapíše na vstupní pásku řetězec~$ x $,
+					který má uložen v~konečném stavovém řízení.
+
+				\item
+					$ M_x $ ověří, zda~$ x $ má strukturu $ x_1\#x_2 $,
+					kde~$ x_1 $ je kód Turingova stroje a~$ x_2 $ je
+					kód jeho vstupu. Pokud ne, odmítne.
+
+				\item
+					$ M_x $ odsimuluje na řetězci s~kódem~$ x_2 $ běh
+					Turingova stroje s~kódem~$ x_1 $. Pokud simulace
+					skončí, smaže svou pásku, zapíše na ni~42
+					libovolných ne-blankových symbolů a~následně přijme.
+					Jinak cyklí.
+			\end{enumerate}
+
+		\item
+			Redukci~$ \sigma $ je možné implementovat úplným Turingovým
+			strojem~$ M_\sigma $, který pro vstup~$ x $ vyprodukuje
+			kód Turingova stroje~$ M_x $. Tento sestává z~následujících
+			komponent:
+
+			\begin{enumerate}
+				\item
+					Komponenta, která maže vstupní pásku\,---\,lze
+					předpřipravit a~pak~$ M_\sigma $ jen vypíše
+					patřičný kód.
+
+				\item
+					$ M_\sigma $ vypíše kód Turingova stroje, který
+					jen zapíše na vstup řetězec $ a_1, a_2, \ldots,
+					a_n $\,---\,opakovaný sekvenční zápis a~posuv
+					doprava.
+
+				\item
+					$ M_\sigma $ vypíše kód Turingova stroje, který
+					na vstupu ověří, zda se jedná o~platnou instanci
+					$ HP $ a~pokud ne, odmítne. (Test na členství
+					v~regulárním jazyce.)
+
+				\item
+					$ M_\sigma $ vypíše kód Turingova stroje, který
+					spustí univerzální Turingův stroj na Turingův
+					stroj s~kódem~$ x_1 $ a~vstupem s~kódem~$ x_2 $.
+			\end{enumerate}
+
+		\item
+			$ M_\sigma $ zajistí sekvenční předávání řízení mezi
+			jednotlivými komponentami.
+
+		\item
+			Nyní zkoumejme jazyk Turingova stroje~$ M_x $:
+
+			\begin{enumerate}[a)]
+				\item
+					$ L(M_x) = \varnothing \Leftrightarrow ( x $
+					nemá strukturu $ x_1\#x_2 $ pro kód Turingova
+					stroje~$ x_1 $ a~kód vstupu~$ x_2) \vee ( x $
+					má strukturu $ x_1\#x_2 $, kde~$ x_1 $ je kód
+					Turingova stroje a~$ x_2 $ kód vstupu, ale
+					Turingův stroj s~kódem~$ x_1 $ na vstupu
+					s~kódem~$ x_2 $ nezastaví$ ) $.
+
+				\item
+					$ L(M_x) = \Sigma^* \Leftrightarrow ( x $
+					má strukturu $ x_1\#x_2 $, kde~$ x_1 $ je kód
+					Turingova stroje a~$ x_2 $ je kód vstupu
+					a~Turingův stroj s~kódem~$ x_1 $ zastaví na
+					vstupu s~kódem~$ x_2) \wedge (M_x $ má po
+					přijetí na pásce právě~42 ne-blankových symbolů.
+			\end{enumerate}
+
+		\item
+			Konečně ukážeme, že redukce~$ \sigma $ zachová členství
+			v~jazyce: \\
+			$ \forall\ x \in \{0, 1, \#\}^* : (\sigma(x) = \langle
+			M_x \rangle \in L_{42}) \Leftrightarrow (L(M_x) =
+			\Sigma^*) \Leftrightarrow ((x $ má strukturu $ x_1\#x_2 $,
+			kde~$ x_1 $ je kód Turingova stroje a~$ x_2 $ kód vstupu$
+			) \wedge ( $Turingův stroj s~kódem~$ x_1 $ zastaví na
+			vstupu s~kódem~$ x_2) \wedge (M_x $ má po přijetí na
+			pásce právě~42 ne-blankových symbolů$ )) \Leftrightarrow
+			x \in HP $.
+	\end{itemize}
+	\QEDB
+
+	\textbf{%
+		Idea důkazu, že jazyk~$ \boldsymbol{L_{42}} $ je  částečně
+		rozhodnutelný.
+	} \\
+	Lze sestavit Turingův stroj~$ M^\prime $ rozhodující
+	jazyk~$ L_{42} $ následujícím způsobem:
+	\begin{itemize}
+		\item
+			$ M^\prime $ zkontroluje, zda na vstupu má platný kód
+			Turingova stroje~$ M $. Pokud ne, odmítne.
+
+		\item
+			$ M^\prime $ na pomocné pásce postupně simuluje běh
+			Turingova stroje~$ M $ na jednotlivých vstupních
+			řetězcích~$ w $. Jednotlivé páskové konfigurace jsou
+			na pomocné pásce vhodně uspořádány.
+
+		\item
+			$ M^\prime $ vždy projde všechny rozpracované simulace
+			a~na každé dále simuluje jeden krok výpočtu.
+
+		\item
+			Pokud byl v~některém kroce řetězec přijat, $ M^\prime $
+			taky přijme. V~opačném případě se přidá pásková konfigurace
+			pro další řetězec a~kroky simulace se opakují.
+	\end{itemize}
+	\QEDB
 
 
-    \section*{4.~příklad}
+	\section*{4.~příklad}
+
+	Uvažujte programovací jazyk \textbf{\texttt{Karel@TIN}}
+	se~zadanou gramatikou a~sémantikou.
+
+	Dokažte, že programovací jazyk \textbf{\texttt{Karel@TIN}} je
+	Turingovksy úplný, tj., dokažte, že
+	\begin{enumerate}[(a)]
+		\item
+			pro každý TS~$ M $ nad abecedou $ \{0, 1\} $ a~řetězec
+			$ w \in \{0, 1\}^* $ lze sestrojit program~$ P_M $
+			v~jazyce \textbf{\texttt{Karel@TIN}} a~zvolit
+			počáteční konfiguraci prostředí~$ C_M $ tak, že~$ P_M $
+			skončí s~návratovou hodnotou~1 právě tehdy, když
+			$ w \in L(M) $;
+
+		\item
+			pro každý program~$ P $ v~jazyce \textbf{\texttt{Karel@TIN}}
+			a~počáteční konfiguraci~$ C $ lze spustit TS~$ M_P $
+			a~řetězec $ w \in \{0, 1\}^* $ tak, že $ w \in L(M_P) $
+			právě tehdy, když robot Karel po interpretaci programu~$ P $
+			z~počáteční konfigurace~$ C $ skončí s~návratovou
+			hodnotu~1.
+	\end{enumerate}
+
+	\subsection*{Řešení:}
+
+	\begin{enumerate}[(a)]
+		\item
+		    Počáteční konfigurace~$ C_M = ((0, 0), \uparrow, g) $. \\
+		    Kódování symbolů: $ 0 \backsimeq 0 $, $ 1 \backsimeq 1 $,
+		    $ \Delta \backsimeq 2 $.
+
+            \texttt{write\_blank}:
+            \begin{lstlisting}
+if empty: goto 3;
+lift-screw;
+if not empty: goto 1;
+drop-screw;
+drop-screw;
+            \end{lstlisting}
+            
+            \texttt{write\_0}:
+            \begin{lstlisting}
+if empty: goto 3;
+lift-screw;
+if not empty: goto 1;
+turn left;
+turn left;
+turn left;
+turn left;
+            \end{lstlisting}
+            
+            \newpage
+            \texttt{write\_1}:
+            \begin{lstlisting}
+if empty: goto 3;
+lift-screw;
+if not empty: goto 1;
+drop-screw;
+            \end{lstlisting}
+            
+            \texttt{move\_forward}:
+            \begin{lstlisting}
+step;
+            \end{lstlisting}
+            
+            \texttt{move\_backward}:
+            \begin{lstlisting}
+turn left;
+turn left;
+step;
+turn left;
+turn left;
+            \end{lstlisting}
+	\end{enumerate}
 \end{document}
